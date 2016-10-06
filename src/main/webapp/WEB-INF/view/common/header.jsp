@@ -17,6 +17,8 @@
 <div id="header">
 
 	<h1>BOARD</h1>
+	<a href="http://localhost:8080/WebToon/login">내 프로젝트가기</a>
+	
 	<c:if test="${not empty sessionScope._USER_INFO_}">
 			<div style="text-align: right;">
 			${sessionScope._USER_INFO_.userNickname} (${POINTS})| 

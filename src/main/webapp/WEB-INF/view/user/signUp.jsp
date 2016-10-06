@@ -12,6 +12,10 @@
 		moveToCenter();
 		isVisibleJoinButton();
 		
+		$("#cancelBtn").click(function(){
+			location.href="./signIn";
+		});
+		
 		var errorCode = "${errorCode}";
 		if(errorCode == 1) {
 			$("div.warning").html("<p>회원가입에 실패했습니다!</p>");

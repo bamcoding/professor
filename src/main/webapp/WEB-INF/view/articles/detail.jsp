@@ -35,10 +35,10 @@
 			</div>
 		</div>
 		<div id="articleFooter">
-			<c:if test="${articles.articleId eq sessionScope._USER_INFO_.userId}">
+		<c:if test="${articles.userId eq sessionScope._USER_INFO_.userId}">
 			<a href="javascript:void(0);" id="deleteBtn">삭제</a>
-			<a href="/Board/board/modify">수정</a>
-			</c:if>
+			<a href="/Board/board/modify?articleId=${articles.articleId}">수정</a>
+		</c:if>
 			<a href="/Board/board/list">목록보기</a>
 		</div>
 	</div>

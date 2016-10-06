@@ -20,4 +20,6 @@ public interface ArticlesDao {
 	public int updateHitCount(String articlesId);
 
 	public void updateRecommendCount(String articleId);
+
+	public int updateArticle(ArticlesVO article);
 }

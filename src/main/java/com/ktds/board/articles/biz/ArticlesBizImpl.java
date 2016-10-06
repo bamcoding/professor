@@ -69,7 +69,10 @@ public class ArticlesBizImpl implements ArticlesBiz{
 		return article.getFileName();
 	}
 	
-	@Override
+	public ArticlesVO getArticleForModify(String articleId) {
+		return articlesDao.getArticleBy(articleId);
+	}
+
 	public boolean deleteArticlesBy(String articleId) {
 		return articlesDao.deleteArticlesBy(articleId) > 0;
 	}
@@ -79,4 +82,38 @@ public class ArticlesBizImpl implements ArticlesBiz{
 		articlesDao.updateRecommendCount(articleId);
 		
 	}
+
+	@Override
+	public boolean updateArticle(ArticlesVO article) {
+		ArticlesVO originalArticle =
+				articlesDao.getArticleBy(article.getArticleId());
+		
+		int modifyCount = 3;
+		
+		
+		//원본과 수정본이 같다면 지워라
+		if( originalArticle.getArticleSubject().equals(article.getArticleSubject())){
+			article.setArticleSubject(null);
+			modifyCount--;
+		}
+		if( originalArticle.getArticleContent().equals(article.getArticleContent())){
+			article.setArticleContent(null);
+			modifyCount--;
+		}
+		
+		if( originalArticle.getFileName() == null){
+			originalArticle.setFileName("");
+		}
+		
+		if( originalArticle.getFileName().equals(article.getFileName())){
+			article.setFileName(null);
+			modifyCount--;
+		}
+		if( modifyCount == 0){
+			return true;
+		}
+		
+		return articlesDao.updateArticle(article) > 0;
+	}
+
 }

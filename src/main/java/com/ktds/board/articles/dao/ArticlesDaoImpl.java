@@ -34,22 +34,22 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 				query.append(" , ?, ?, SYSDATE, 0, 0, ?, ? ) ");
 
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
+
 				pstmt.setString(1, articlesVO.getArticleSubject());
 				pstmt.setString(2, articlesVO.getArticleContent());
 				pstmt.setString(3, articlesVO.getUserId());
 				pstmt.setString(4, articlesVO.getFileName());
-				
+
 				return pstmt;
 			}
 		});
 	}
-	
+
 	@Override
 	public int getCountOfArticles(SearchArticleVO searchArticle) {
-		
+
 		return (int) selectOne(new QueryAndResult() {
-			
+
 			@Override
 			public PreparedStatement query(Connection conn) throws SQLException {
 
@@ -58,40 +58,34 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 				query.append("FROM		 ARTICLES A ");
 				query.append("		    , USR U ");
 				query.append("WHERE		A.USR_ID = U.USR_ID ");
-				
-				if(searchArticle.getSearchType() == 1) {
+
+				if (searchArticle.getSearchType() == 1) {
 					query.append("AND		( A.ATCL_SUBJECT LIKE '%' || ? || '%' ");
 					query.append("OR		A.ATCL_CONTENT LIKE '%' || ? || '%' ) ");
-				}
-				else if(searchArticle.getSearchType() == 2){
+				} else if (searchArticle.getSearchType() == 2) {
 					query.append("AND		A.ATCL_SUBJECT LIKE '%' || ? || '%' ");
-				}
-				else if(searchArticle.getSearchType() == 3){
+				} else if (searchArticle.getSearchType() == 3) {
 					query.append("AND		A.ATCL_CONTENT LIKE '%' || ? || '%' ");
-				}
-				else if(searchArticle.getSearchType() == 4){
+				} else if (searchArticle.getSearchType() == 4) {
 					query.append("AND		U.USR_NICK_NM LIKE '%' || ? || '%' ");
 				}
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
-				if(searchArticle.getSearchType() == 1) {
+
+				if (searchArticle.getSearchType() == 1) {
 					pstmt.setString(1, searchArticle.getSearchKeyword());
 					pstmt.setString(2, searchArticle.getSearchKeyword());
-				}
-				else if(searchArticle.getSearchType() == 2){
+				} else if (searchArticle.getSearchType() == 2) {
+					pstmt.setString(1, searchArticle.getSearchKeyword());
+				} else if (searchArticle.getSearchType() == 3) {
+					pstmt.setString(1, searchArticle.getSearchKeyword());
+				} else if (searchArticle.getSearchType() == 4) {
 					pstmt.setString(1, searchArticle.getSearchKeyword());
 				}
-				else if(searchArticle.getSearchType() == 3){
-					pstmt.setString(1, searchArticle.getSearchKeyword());
-				}
-				else if(searchArticle.getSearchType() == 4){
-					pstmt.setString(1, searchArticle.getSearchKeyword());
-				}
-				
+
 				return pstmt;
 			}
-			
+
 			@Override
 			public Object makeObject(ResultSet rs) throws SQLException {
 				rs.next();
@@ -115,60 +109,53 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 				query.append("FROM		 ARTICLES A ");
 				query.append("		    , USR U ");
 				query.append("WHERE		A.USR_ID = U.USR_ID ");
-				
-				if(searchArticle.getSearchType() == 1) {
+
+				if (searchArticle.getSearchType() == 1) {
 					query.append("AND		( A.ATCL_SUBJECT LIKE '%' || ? || '%' ");
 					query.append("OR		A.ATCL_CONTENT LIKE '%' || ? || '%' ) ");
-				}
-				else if(searchArticle.getSearchType() == 2){
+				} else if (searchArticle.getSearchType() == 2) {
 					query.append("AND		A.ATCL_SUBJECT LIKE '%' || ? || '%' ");
-				}
-				else if(searchArticle.getSearchType() == 3){
+				} else if (searchArticle.getSearchType() == 3) {
 					query.append("AND		A.ATCL_CONTENT LIKE '%' || ? || '%' ");
-				}
-				else if(searchArticle.getSearchType() == 4){
+				} else if (searchArticle.getSearchType() == 4) {
 					query.append("AND		U.USR_NICK_NM LIKE '%' || ? || '%' ");
 				}
-				
+
 				query.append("ORDER 	BY	A.ATCL_ID DESC ");
-				
+
 				String pagingQuery = appendPagingQueryFormat(query.toString());
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(pagingQuery);
 				int index = 1;
-				
-				if(searchArticle.getSearchType() == 1) {
+
+				if (searchArticle.getSearchType() == 1) {
 					pstmt.setString(index++, searchArticle.getSearchKeyword());
 					pstmt.setString(index++, searchArticle.getSearchKeyword());
-				}
-				else if(searchArticle.getSearchType() == 2){
+				} else if (searchArticle.getSearchType() == 2) {
 					pstmt.setString(index++, searchArticle.getSearchKeyword());
-				}
-				else if(searchArticle.getSearchType() == 3){
+				} else if (searchArticle.getSearchType() == 3) {
 					pstmt.setString(index++, searchArticle.getSearchKeyword());
-				}
-				else if(searchArticle.getSearchType() == 4){
+				} else if (searchArticle.getSearchType() == 4) {
 					pstmt.setString(index++, searchArticle.getSearchKeyword());
 				}
-				
+
 				pstmt.setInt(index++, searchArticle.getEndRowNumber());
 				pstmt.setInt(index++, searchArticle.getStartRowNumber());
-				
+
 				return pstmt;
 			}
 
-			
 			@Override
 			public Object makeObject(ResultSet rs) throws SQLException {
-				
+
 				UserVO userVO = null;
 				List<ArticlesVO> articles = new ArrayList<ArticlesVO>();
 				ArticlesVO articlesVO = null;
-				
-				while(rs.next()) {
+
+				while (rs.next()) {
 					articlesVO = new ArticlesVO();
 					userVO = articlesVO.getUserVO();
-					
+
 					articlesVO.setArticleId(rs.getString("ATCL_ID"));
 					articlesVO.setArticleSubject(rs.getString("ATCL_SUBJECT"));
 					articlesVO.setArticleContent(rs.getString("ATCL_CONTENT"));
@@ -182,13 +169,13 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 				}
 				return articles;
 			}
-		} );
+		});
 	}
 
 	@Override
 	public ArticlesVO getArticleBy(String articlesId) {
 		return (ArticlesVO) selectOne(new QueryAndResult() {
-			
+
 			@Override
 			public PreparedStatement query(Connection conn) throws SQLException {
 				StringBuffer query = new StringBuffer();
@@ -202,17 +189,17 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 				query.append("WHERE		A.USR_ID = U.USR_ID ");
 				query.append("AND		A.ATCL_ID = ? ");
 				query.append("ORDER 	BY	A.USR_ID DESC ");
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
+
 				pstmt.setString(1, articlesId);
 				return pstmt;
 			}
-			
+
 			@Override
 			public Object makeObject(ResultSet rs) throws SQLException {
 				ArticlesVO articlesVO = null;
-				while(rs.next()) {
+				while (rs.next()) {
 					articlesVO = new ArticlesVO();
 					articlesVO.setArticleId(rs.getString("ATCL_ID"));
 					articlesVO.setArticleSubject(rs.getString("ATCL_SUBJECT"));
@@ -233,19 +220,19 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 	@Override
 	public int deleteArticlesBy(String articleId) {
 		return insert(new Query() {
-			
+
 			@Override
 			public PreparedStatement query(Connection conn) throws SQLException {
-				
+
 				StringBuffer query = new StringBuffer();
 				query.append("DELETE	");
 				query.append("FROM	ARTICLES ");
 				query.append("WHERE	ATCL_ID = ? ");
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
+
 				pstmt.setString(1, articleId);
-				
+
 				return pstmt;
 			}
 		});
@@ -253,22 +240,22 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 
 	@Override
 	public int updateHitCount(String articlesId) {
-		
+
 		return insert(new Query() {
-			
+
 			@Override
 			public PreparedStatement query(Connection conn) throws SQLException {
 
 				StringBuffer query = new StringBuffer();
-				
+
 				query.append("UPDATE	ARTICLES ");
 				query.append("SET		HIT_CNT = HIT_CNT + 1 ");
 				query.append("WHERE		ATCL_ID = ? ");
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
+
 				pstmt.setString(1, articlesId);
-				
+
 				return pstmt;
 			}
 		});
@@ -278,28 +265,66 @@ public class ArticlesDaoImpl extends DaoSupport implements ArticlesDao {
 	public void updateRecommendCount(String articleId) {
 
 		insert(new Query() {
-			
+
 			@Override
 			public PreparedStatement query(Connection conn) throws SQLException {
 
 				StringBuffer query = new StringBuffer();
-				
+
 				query.append("UPDATE	ARTICLES ");
 				query.append("SET		RCMD_CNT = RCMD_CNT + 1, ");
 				query.append("			HIT_CNT = HIT_CNT - 1 ");
 				query.append("WHERE		ATCL_ID = ? ");
-				
+
 				PreparedStatement pstmt = conn.prepareStatement(query.toString());
-				
+
 				pstmt.setString(1, articleId);
-				
+
 				return pstmt;
 
 			}
 		});
-		
+
 	}
 
-
+	@Override
+	public int updateArticle(ArticlesVO article) {
+		return insert(new Query() {
+			@Override
+			public PreparedStatement query(Connection conn) throws SQLException {
+				StringBuffer query = new StringBuffer();
+				query.append(" UPDATE 	ARTICLES 						");
+				query.append(" SET		LIST_MDFY_DT = SYSDATE			");
+				//만약에 제목이 널이 아니면
+				if(article.getArticleSubject() != null){
+					query.append(" ,ATCL_SUBJECT = ? ");
+				}
+				if(article.getArticleContent() != null){
+					query.append(" ,ATCL_CONTENT = ? ");
+				}
+				if(article.getFileName() != null){
+					query.append(" ,FILE_NM = ? ");
+				}
+				
+				query.append(" WHERE	ATCL_ID=?						");	
+				PreparedStatement pstmt = conn.prepareStatement(query.toString());
+				int index = 1;
+				if(article.getArticleSubject() != null){
+					pstmt.setString(index++, article.getArticleSubject());
+				}
+				if(article.getArticleContent() != null){
+					pstmt.setString(index++, article.getArticleContent());
+				}
+				if(article.getFileName() != null){
+					pstmt.setString(index++, article.getFileName());
+				}
+				
+				pstmt.setString(index, article.getArticleId());
+				
+				
+				return pstmt;
+			}
+		});
+	}
 
 }

@@ -17,9 +17,18 @@ public interface ArticlesBiz {
 	
 	public String getFileNameOfArticleBy(String articleId);
 
+	public ArticlesVO getArticleForModify(String articleId);
+
 	public boolean deleteArticlesBy(String articleId);
 
+	/**
+	 * boolean
+	 * @param articleId
+	 */
 	public void updateRecommendCount(String articleId);
+
+	public boolean updateArticle(ArticlesVO article);
+
 	
 	
 

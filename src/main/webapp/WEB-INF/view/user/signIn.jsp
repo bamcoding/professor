@@ -13,6 +13,10 @@
 		moveToCenter();
 		isVisibleSignInButton();
 		
+		$("#signUpBtn").click(function(){
+			location.href="./signUp";
+		});
+		
 		var errorCode = "${param.errorCode}";
 		if(errorCode == 1) {
 			$("div.warning").html("<p>아이디 혹은 비밀번호가 틀렸습니다!</p>");
@@ -93,7 +97,7 @@
 					<input type="button" id="signInBtn" value="Sign In" />
 				</div>
 				<div class="right">
-					<input type="button" id="cancelBtn" value="Cancel" />
+					<input type="button" id="signUpBtn" value="회원가입" />
 				</div>
 				<div class="clear"></div>
 			</div>

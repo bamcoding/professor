@@ -43,6 +43,7 @@ public class DoWriteServlet extends HttpServlet {
 		String articleSubject = multipartRequest.getParameter("articleSubject");
 		String articleContent = multipartRequest.getParameter("articleContent");
 		
+		
 		String fileName ="";		
 		
 		MultipartFile uploadFile = multipartRequest.getFile("file");
@@ -51,10 +52,10 @@ public class DoWriteServlet extends HttpServlet {
 		if(uploadFile.getFileSize() > 0) {
 			
 			//폴더 만들기
-			File uploadFileDirectory = new File("D:\\board\\uploadfiles\\");
-			uploadFileDirectory.mkdirs();
-			if(!uploadFileDirectory.exists()) {
-				uploadFileDirectory.mkdirs();
+			File uploadedFileDirectory = new File("D:\\board\\uploadfiles\\");
+			uploadedFileDirectory.mkdirs();
+			if(!uploadedFileDirectory.exists()) {
+				uploadedFileDirectory.mkdirs();
 			}
 			
 			uploadFile.write("D:\\board\\uploadfiles\\" + uploadFile.getFileName());
@@ -71,8 +72,8 @@ public class DoWriteServlet extends HttpServlet {
 			response.sendRedirect("/Board/doWrite?errorCode=2");
 		}
 		
-		articleContent = articleContent.replaceAll("/n","<br/>")
-									   .replaceAll("/r","");
+		articleContent = articleContent.replaceAll("\n","<br/>")
+									   .replaceAll("\r","");
 		
 		HttpSession session = request.getSession();
 		UserVO userVO = (UserVO) session.getAttribute(Session.USER_INFO);

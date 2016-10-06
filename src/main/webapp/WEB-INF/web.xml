@@ -190,4 +190,14 @@
     <servlet-name>SearchInitiateServlet</servlet-name>
     <url-pattern>/board/list/init</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DoModifyServlet</display-name>
+    <servlet-name>DoModifyServlet</servlet-name>
+    <servlet-class>com.ktds.board.user.web.DoModifyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoModifyServlet</servlet-name>
+    <url-pattern>/board/doModify</url-pattern>
+  </servlet-mapping>
 </web-app>
