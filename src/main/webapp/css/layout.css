@@ -1,0 +1,165 @@
+@CHARSET "UTF-8";
+
+body, div, p, span, input, select, textarea, td, th, li, b, file {
+	font-size: 12px;
+	color: #333;
+	font-family: "나눔고딕", "고딕체", "고딕"
+}
+
+body {
+	background-color: #EEEEEE;
+}
+
+#wrapper {
+	width: 700px;
+	margin: 0 auto;
+}
+
+a:ACTIVE, a:VISITED, a:LINK {
+	font-size: 12px;
+	color: #666;
+	text-decoration: none;
+}
+
+a:HOVER {
+	font-size: 12px;
+	color: #888;
+	text-decoration: underline;
+}
+
+.round {
+	border-radius: 7px;
+}
+
+input {
+	padding: 5px;
+	padding-left: 15px;
+	border-radius: 7px;
+	border: 1px solid #BBBBBB;
+}
+
+input[type=file] {
+	border: none;
+}
+
+input[type=button], select, textarea {
+	padding: 5px;
+	border: 1px solid #BBBBBB;
+	border-radius: 7px;
+}
+
+textarea {
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 1px solid #BBBBBB;
+}
+
+input[type=button]:HOVER {
+	border: 1px solid RED;
+}
+
+input:FOCUS, textarea:FOCUS {
+	border: 1px solid #ff0000;
+}
+
+#registForm, #loginForm {
+	margin: 0 auto;
+	text-align: center;
+	width: 275px;
+}
+
+#registForm input[type=text], input[type=password] {
+	width: 250px;
+	margin-top: 5px;
+}
+
+#loginForm input[type=text], input[type=password] {
+	width: 250px;
+	margin-top: 5px;
+}
+
+#registForm, #loginForm input:FIRST-CHILD {
+	margin-top: 0px;
+}
+
+.inline {
+	display: inline-block;
+}
+
+#writeForm input[type="text"], textarea{
+	width: 100%;
+	margin-top: 5px;
+}
+
+#writeForm textarea {
+	height: 300px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+#article {
+	background-color: #FFFFFF;
+	padding: 15px;
+	border-radius: 7px;
+}
+
+
+#article #articleHeader p {
+	margin: 0px;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+#article #articleHeader #articleInfo span {
+	font-size: 13px;
+	margin-right: 15px;
+}
+
+#article #articleHeader #articleInfo span img {
+	width: 15px;
+	margin-right: 5px;
+}
+
+#article #articleHeader #attachedFile span {
+	font-size: 13px;
+	margin-right: 15px;
+}
+
+#article #articleHeader #attachedFile span img {
+	width: 15px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+
+#article #articleBody {
+	margin-top: 10px;
+}
+
+#articleFooter {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.warning {
+	background-color: #FFB7DB;
+	margin: 0 auto;
+}
+
+.pass {
+	background-color: #A0FEAC;
+}
+
+
+
+

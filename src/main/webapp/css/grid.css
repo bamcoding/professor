@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+.grid {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+}
+
+.grid th, td {
+	border-left: 1px solid #BBBBBB;
+}
+
+.grid th:FIRST-CHILD {
+	border-top-left-radius: 5px;
+}
+
+.grid th:LAST-CHILD {
+	border-top-right-radius: 5px;
+}
+
+.grid th:FIRST-CHILD, td:FIRST-CHILD {
+	border-left: none;
+}
+
+.grid th {
+	padding: 10px;
+	background-color: #DDDDDD;
+	font-weight: bold;
+}
+
+.grid td {
+	padding: 7px;
+}
+
+.grid td:FIRST-CHILD {
+	padding-left: 15px;
+}
+
+.grid tr:NTH-CHILD(2n+1) {
+	background-color: #F3F3F4;
+}
